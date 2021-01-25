@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Warehouse;
 use App\Models\Warehousedescription;
+use Doctrine\Inflector\Rules\Word;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -97,9 +98,15 @@ class WarehouseController extends Controller
      * @param  \App\Models\Warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Warehouse $warehouse)
+    public function update(Request $request)
     {
-        //
+        $modelWarehouse= new Warehouse();
+        $Warehousefind=$modelWarehouse->where(['id' =>$request->id])->get();
+        $warehouse = Warehouse::find($Warehousefind[0]['id']);
+        $warehouse->name=$request->name;
+        $warehouse->headquarters_number=$request->headquartersNumber;
+        $warehouse->save();
+        return response()->json(true, 200);
     }
 
     /**
@@ -108,9 +115,13 @@ class WarehouseController extends Controller
      * @param  \App\Models\Warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Warehouse $warehouse)
+    public function destroy(Request $request)
     {
-        //
+        $modelWarehouse= new Warehouse();
+        $Warehousefind=$modelWarehouse->where(['id' =>$request->id])->get();
+        $warehouse = Warehouse::find($Warehousefind[0]['id']);
+        $warehouse->delete();
+        return response()->json(true, 200);
     }
 
 

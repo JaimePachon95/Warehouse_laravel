@@ -16,4 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/','WarehouseController@index');
 Route::post('/warehouses','WarehouseController@store')->name('warehouse.store');
-Route::delete('/warehouses/{warehouse}','WarehouseController@destroy')->name('warehouse.destroy');
+Route::post('/warehouses/update','WarehouseController@update')->name('warehouse.update');
+Route::post('/warehouses/destroy','WarehouseController@destroy')->name('warehouse.destroy');
